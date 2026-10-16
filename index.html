@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f9fa">
+  <title>Datamex College of Saint Adeline – Parañaque Campus | EduPedia</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #202122;
+      --muted: #54595d;
+      --link: #36c;
+      --border: #a7d7f9;
+      --line: #c8ccd1;
+      --panel: #f8f9fa;
+      --blue-wash: #f1f7fc;
+      --gold: #b8860b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: url("assets/campus-background.png") center top / cover no-repeat fixed;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button, input { font: inherit; }
+
+    .topbar {
+      position: sticky;
+      z-index: 5;
+      top: 0;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      min-height: 66px;
+      padding: 0 clamp(1rem, 4vw, 4rem);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .8);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 1px 4px #20212212;
+    }
+    .brand { display: flex; align-items: center; gap: .65rem; color: var(--ink); white-space: nowrap; }
+    .brand:hover { text-decoration: none; }
+    .brand-mark {
+      display: block;
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .brand-name { font-family: Georgia, "Times New Roman", serif; font-size: 1.2rem; letter-spacing: -.03em; }
+    .search { display: flex; flex: 1; max-width: 490px; margin: 0 auto; }
+    .search input { min-width: 0; flex: 1; padding: .55rem .8rem; border: 1px solid #a2a9b1; border-right: 0; border-radius: 2px 0 0 2px; }
+    .search input:focus { outline: 2px solid #36c; outline-offset: -2px; }
+    .search button { padding: .45rem 1rem; border: 1px solid #a2a9b1; border-radius: 0 2px 2px 0; background: var(--panel); color: var(--ink); cursor: pointer; }
+    .search button:hover { background: #eaecf0; }
+    .top-links { display: flex; gap: 1.2rem; white-space: nowrap; font-size: .9rem; }
+
+    .page { width: min(1440px, 100%); margin: 0 auto; padding: 2rem clamp(1rem, 4vw, 4rem) 4rem; }
+    .page-heading {
+      margin-bottom: 1.5rem;
+      padding-bottom: .8rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .18);
+    }
+    .eyebrow { margin: 0 0 .35rem; color: var(--muted); font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+    h1 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.35rem); line-height: 1.2; }
+    .page-heading p { margin: .5rem 0 0; color: var(--muted); }
+    .layout { display: grid; grid-template-columns: 185px minmax(0, 1fr) 285px; gap: clamp(1.5rem, 3vw, 3.25rem); align-items: start; }
+
+    .left-rail { position: sticky; top: 90px; grid-column: 1; grid-row: 1; }
+    .rail-title { margin: 0 0 .6rem; color: var(--muted); font-size: .8rem; font-weight: 700; }
+    .rail-nav, .toc { margin: 0 0 1.5rem; padding: 0; list-style: none; }
+    .rail-nav li, .toc li { margin: .35rem 0; font-size: .88rem; line-height: 1.4; }
+    .rail-nav a, .toc a { display: block; padding: .2rem .45rem; border-left: 2px solid transparent; }
+    .rail-nav a:hover, .toc a:hover, .toc a[aria-current="location"] { border-left-color: var(--link); background: var(--blue-wash); text-decoration: none; }
+    .toc .sub { padding-left: .8rem; }
+    .rail-divider { height: 1px; margin: 1rem 0; border: 0; background: var(--line); }
+
+    article { min-width: 0; grid-column: 2; grid-row: 1; }
+    .notice { margin: 0 0 1.2rem; padding: .65rem .85rem; border: 1px solid #eaecf0; background: var(--panel); color: var(--muted); font-size: .86rem; }
+    .lead { margin: 0 0 1.3rem; font-size: 1.05rem; line-height: 1.75; }
+    .article-tools { display: flex; align-items: center; justify-content: space-between; margin: .8rem 0 1.7rem; color: var(--muted); font-size: .8rem; }
+    .article-tools span:last-child { color: #72777d; }
+    article section { margin: 2rem 0; }
+    article h2 { margin: 0 0 .8rem; padding-bottom: .3rem; border-bottom: 1px solid var(--line); font-size: 1.55rem; }
+    article h3 { margin: 1.35rem 0 .45rem; font-size: 1.2rem; }
+    article p { margin: .5rem 0 .85rem; }
+    .timeline { position: relative; margin: 1rem 0 1.25rem .5rem; padding-left: 1.5rem; border-left: 2px solid #eaecf0; }
+    .timeline-item { position: relative; padding: 0 0 1rem; }
+    .timeline-item::before { position: absolute; top: .42rem; left: -1.91rem; width: .65rem; height: .65rem; border: 2px solid #fff; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px var(--gold); content: ""; }
+    .timeline-year { color: #7c5b00; font-size: .8rem; font-weight: 750; letter-spacing: .08em; }
+    .programs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin: 1rem 0; }
+    .program-card { padding: .9rem 1rem; border: 1px solid #eaecf0; background: var(--panel); }
+    .program-card strong { display: block; margin-bottom: .25rem; }
+    .program-card span { color: var(--muted); font-size: .88rem; }
+    .reference-list { padding-left: 1.5rem; }
+    .reference-list li { padding: .3rem 0; font-size: .9rem; }
+    .footnote { font-size: .8rem; color: var(--muted); }
+
+    .right-rail { grid-column: 3; grid-row: 1; }
+    .infobox { border: 1px solid #a2a9b1; background: var(--panel); font-size: .87rem; }
+    .infobox-title { padding: .8rem; background: #eaecf0; text-align: center; font-family: Georgia, "Times New Roman", serif; font-size: 1.05rem; font-weight: 700; line-height: 1.35; }
+    .infobox-banner { display: grid; min-height: 180px; place-items: center; padding: .75rem; background: #fff; }
+    .infobox-logo { display: block; width: min(100%, 220px); height: auto; }
+    .infobox table { width: 100%; border-collapse: collapse; }
+    .infobox th, .infobox td { padding: .47rem .6rem; border-top: 1px solid #eaecf0; vertical-align: top; text-align: left; }
+    .infobox th { width: 39%; color: #54595d; font-weight: 700; }
+    .infobox-caption { padding: .6rem; color: var(--muted); font-size: .75rem; }
+    .fact-chip { display: inline-block; margin: .15rem .15rem .15rem 0; padding: .05rem .35rem; border: 1px solid #c8ccd1; border-radius: 2px; background: white; font-size: .75rem; }
+    .social-link { display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .5rem; border: 1px solid #c8ccd1; border-radius: 2px; background: #fff; font-weight: 600; }
+    .social-link:hover { background: var(--blue-wash); text-decoration: none; }
+
+    .search-status { min-height: 1.4rem; margin: 0; color: var(--muted); font-size: .82rem; }
+    mark { padding: 0 .08em; background: #ffedaa; color: inherit; }
+    .search-match { border-radius: 2px; box-shadow: 0 0 0 3px #ffedaa; }
+    .no-results { padding: .8rem; border-left: 3px solid #72777d; background: var(--panel); }
+    footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+
+    :root {
+      color-scheme: light;
+      --ink: #202122;
+      --muted: #54595d;
+      --link: #36c;
+      --line: #c8ccd1;
+      --panel: rgba(255, 255, 255, .94);
+      --blue-wash: #f1f7fc;
+    }
+
+    body {
+      background:
+        linear-gradient(rgba(255, 255, 255, .38), rgba(255, 255, 255, .52)),
+        url("assets/campus-background.png") center center / cover fixed;
+      color: var(--ink);
+    }
+
+    .topbar {
+      min-height: 58px;
+      gap: 1.5rem;
+      border-bottom-color: #c8ccd1;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 2px 12px #20212220;
+    }
+    .brand-mark { border-radius: 50%; }
+    .brand-name { color: #202122; font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -.03em; }
+    .search input { border-color: #a2a9b1; background: #fff; color: var(--ink); }
+    .search input::placeholder { color: #72777d; }
+    .search button { border-color: #a2a9b1; background: #f8f9fa; color: var(--ink); }
+    .search button:hover { background: #eaecf0; }
+    .top-links a { color: #36c; }
+
+    .page { width: min(1440px, 100%); }
+    .page-heading {
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      margin-bottom: 1.25rem;
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border: 1px solid #ffffffa8;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, .9), rgba(255, 255, 255, .38)),
+        url("assets/campus-background2.png") center 42% / cover;
+      color: #202122;
+      box-shadow: 0 8px 28px #20212220;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .page-heading .eyebrow { color: #54595d; }
+    .page-heading p { color: #404244; }
+    .page-heading h1 { max-width: 850px; text-shadow: 0 1px 3px #ffffffb3; }
+
+    .left-rail,
+    article,
+    .infobox {
+      border: 1px solid #a7d7f9;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 8px 28px #20212220;
+    }
+    .left-rail { padding: 1rem .8rem; }
+    .rail-title { color: #54595d; }
+    .rail-divider { background: #c8ccd1; }
+    .rail-nav a, .toc a { color: #36c; }
+    .rail-nav a:hover, .toc a:hover, .toc a[aria-current="location"] {
+      border-left-color: #36c;
+      background: #f1f7fc;
+    }
+
+    article { padding: clamp(1rem, 2.5vw, 2rem); }
+    .notice { border-color: #eaecf0; background: #f8f9fa; color: #54595d; }
+    .lead { color: #202122; }
+    .article-tools,
+    .article-tools span:last-child { color: #72777d; }
+    article h2 { border-bottom-color: #c8ccd1; color: #202122; }
+    article h3 { color: #202122; }
+    .timeline { border-left-color: #eaecf0; }
+    .timeline-item::before { border-color: #fff; background: #b8860b; box-shadow: 0 0 0 1px #b8860b; }
+    .timeline-year { color: #7c5b00; }
+    .program-card { border-color: #eaecf0; background: #f8f9fa; }
+    .program-card span, .footnote { color: #54595d; }
+    .right-rail { min-width: 0; }
+    .infobox { background: rgba(255, 255, 255, .96); }
+    .infobox-title { background: #eaecf0; color: #202122; }
+    .infobox-banner { background: #fff; }
+    .infobox th, .infobox td { border-top-color: #eaecf0; }
+    .infobox th { color: #54595d; }
+    .infobox-caption { color: #54595d; }
+    .fact-chip, .social-link { border-color: #c8ccd1; background: #fff; color: #202122; }
+    .social-link:hover { background: #f1f7fc; }
+    .search-status { color: #54595d; }
+    mark { background: #ffedaa; color: inherit; }
+    .search-match { box-shadow: 0 0 0 3px #ffedaa; }
+    .no-results { border-left-color: #72777d; background: #f8f9fa; }
+    footer { border-top-color: #c8ccd1; color: #54595d; }
+
+    @media (max-width: 1050px) {
+      .layout { grid-template-columns: 160px minmax(0, 1fr); }
+      .right-rail { grid-column: 2; grid-row: 1; }
+      .infobox { max-width: 520px; margin: 0 0 1.5rem; }
+      .left-rail { grid-column: 1; grid-row: 1 / span 2; }
+      article { grid-column: 2; grid-row: 2; }
+    }
+    @media (max-width: 800px) {
+      .topbar { position: static; flex-wrap: wrap; gap: .75rem; padding: .75rem 1rem; }
+      .brand { flex: 1; }
+      .top-links { order: 3; width: 100%; justify-content: space-between; gap: .45rem; overflow-x: auto; }
+      .search { order: 2; flex-basis: 100%; max-width: none; }
+      .page { padding-top: 1.3rem; }
+      .layout { display: flex; flex-direction: column; gap: 1rem; }
+      .left-rail { position: static; order: 1; width: 100%; padding: .8rem; border: 1px solid #eaecf0; background: var(--panel); }
+      .left-rail details summary { cursor: pointer; font-weight: 700; }
+      .left-rail details > *:not(summary) { margin-top: .8rem; }
+      .right-rail { order: 2; width: 100%; }
+      .infobox { max-width: none; }
+      article { order: 3; width: 100%; }
+      .programs { grid-template-columns: 1fr; }
+      .page-heading { min-height: 190px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="EduPedia home">
+      <img class="brand-mark" src="assets/datamex-college-logo.png" alt="">
+      <span class="brand-name">EduPedia</span>
+    </a>
+    <form class="search" id="search-form" role="search">
+      <input id="site-search" type="search" placeholder="Search this article…" aria-label="Search this article" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
+    <nav class="top-links" aria-label="Main navigation">
+      <a href="#overview">Main Page</a>
+      <a href="#history">History</a>
+      <a href="#academic-programs">Academic Programs</a>
+      <a href="#campus">Campus Info</a>
+    </nav>
+  </header>
+
+  <main class="page" id="top">
+    <div class="page-heading">
+      <p class="eyebrow">Institution profile · Parañaque City</p>
+      <h1>Datamex College of Saint Adeline – Parañaque Campus</h1>
+      <p>From EduPedia, the community knowledge encyclopedia</p>
+    </div>
+
+    <div class="layout">
+      <aside class="left-rail" aria-label="Article navigation">
+        <details open>
+          <summary class="rail-title">Contents &amp; navigation</summary>
+          <hr class="rail-divider">
+          <p class="rail-title">In this article</p>
+          <nav aria-label="Table of contents">
+            <ol class="toc">
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#history">History</a></li>
+              <li class="sub"><a href="#foundation">Foundation and early years</a></li>
+              <li class="sub"><a href="#college">Evolution to college</a></li>
+              <li class="sub"><a href="#branches">Saint Adeline branches</a></li>
+              <li><a href="#academic-programs">Academic programs</a></li>
+              <li><a href="#campus">Campus</a></li>
+              <li><a href="#accreditation">Accreditation</a></li>
+              <li><a href="#references">References</a></li>
+            </ol>
+          </nav>
+          <hr class="rail-divider">
+          <p class="rail-title">Explore EduPedia</p>
+          <ul class="rail-nav">
+            <li><a href="#overview">Institution overview</a></li>
+            <li><a href="#history">Historical milestones</a></li>
+            <li><a href="#academic-programs">Programs</a></li>
+            <li><a href="#campus">Location &amp; campus</a></li>
+          </ul>
+        </details>
+      </aside>
+
+      <div class="right-rail">
+        <aside class="infobox" aria-label="Institution facts">
+          <div class="infobox-title">Datamex College of Saint Adeline<br>Parañaque Campus</div>
+          <div class="infobox-banner">
+            <img class="infobox-logo" src="assets/datamex-college-logo.png" alt="Datamex College of Saint Adeline crest">
+          </div>
+          <div class="infobox-caption">Institutional profile</div>
+          <table>
+            <tbody>
+              <tr><th scope="row">Parent system</th><td>Datamex Education System</td></tr>
+              <tr><th scope="row">Founder &amp; president</th><td>Oscar M. Ibay</td></tr>
+              <tr><th scope="row">Founded</th><td>October 28, 1978<br><span class="footnote">as Datamex Computer School</span></td></tr>
+              <tr><th scope="row">Status elevation</th><td>1993<br><span class="footnote">Datamex Computer College</span></td></tr>
+              <tr><th scope="row">Type</th><td>Non-sectarian educational institution</td></tr>
+              <tr><th scope="row">Location</th><td>8167 Dr. A. Santos Avenue, San Dionisio (Sucat), Parañaque City</td></tr>
+              <tr><th scope="row">Accreditations</th><td><span class="fact-chip">DECS</span><span class="fact-chip">CHED</span><span class="fact-chip">TESDA</span></td></tr>
+              <tr><th scope="row">Programs</th><td>Basic education, higher education, and technical-vocational training</td></tr>
+              <tr><th scope="row">Social media</th><td><a class="social-link" href="https://www.facebook.com/CollegeofStAdelineParanaque" target="_blank" rel="noopener noreferrer" aria-label="Visit Datamex College of Saint Adeline Parañaque on Facebook (opens in a new tab)">f&nbsp; Facebook page ↗</a></td></tr>
+            </tbody>
+          </table>
+        </aside>
+      </div>
+
+      <article id="article">
+        <p class="notice"><strong>About this page:</strong> This profile is an informational overview. Historical and institutional details below are reproduced from the supplied brief and should be checked against official records.</p>
+        <p class="lead" id="overview"><strong>Datamex College of Saint Adeline – Parañaque Campus</strong> is presented here as a branch of the Datamex Education System located along Dr. A. Santos Avenue in Sucat, Parañaque City. The institution’s story begins with the establishment of Datamex Computer School in 1978 under founder Oscar M. Ibay, followed by its elevation to college status in 1993 and subsequent expansion into Saint Adeline campuses.</p>
+        <div class="article-tools"><span>Article</span><span>Last reviewed: October 2026 · Reading time: 4 min</span></div>
+        <p class="search-status" id="search-status" aria-live="polite"></p>
+
+        <section id="history">
+          <h2>History</h2>
+          <p>The institution’s development, as outlined in this profile, spans vocational computer training, college-level programs, and the later establishment of Saint Adeline branches.</p>
+          <div class="timeline">
+            <div class="timeline-item" id="foundation">
+              <span class="timeline-year">1978</span>
+              <h3>Foundation and early years</h3>
+              <p>Datamex Computer School was founded on October 28, 1978, by Oscar M. Ibay. The school is described as having received DECS approval and as providing vocational, computer-related training intended to prepare Filipinos for emerging technology work.</p>
+            </div>
+            <div class="timeline-item" id="college">
+              <span class="timeline-year">1993</span>
+              <h3>Evolution to college</h3>
+              <p>In 1993, the institution was elevated to Datamex Computer College. This transition marked an expansion beyond its original computer-school identity toward broader college-level academic offerings.</p>
+            </div>
+            <div class="timeline-item" id="branches">
+              <span class="timeline-year">Later expansion</span>
+              <h3>Establishment of Saint Adeline branches</h3>
+              <p>The Datamex Education System later extended its network through Saint Adeline campuses. The Parañaque campus is associated with the Dr. A. Santos Avenue location in Sucat, serving students in the surrounding community.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="academic-programs">
+          <h2>Academic programs</h2>
+          <p>The supplied profile describes offerings across basic education, higher education, and technical-vocational training. Program availability may vary by campus and academic year; consult the institution for current enrollment information.</p>
+          <div class="programs">
+            <div class="program-card"><strong>Basic education</strong><span>Kinder through Senior High School</span></div>
+            <div class="program-card"><strong>BS Information Technology</strong><span>Higher education program listed in the supplied brief</span></div>
+            <div class="program-card"><strong>Tourism Management</strong><span>Higher education program listed in the supplied brief</span></div>
+            <div class="program-card"><strong>Office Administration</strong><span>Higher education program listed in the supplied brief</span></div>
+          </div>
+        </section>
+
+        <section id="campus">
+          <h2>Campus</h2>
+          <p>The Parañaque Campus is listed at <strong>8167 Dr. A. Santos Avenue, San Dionisio (Sucat), Parañaque City</strong>. Its location places it along a major corridor in the southern part of Metro Manila.</p>
+          <p class="footnote">Address and campus details are presented as supplied and have not been independently verified on this page.</p>
+        </section>
+
+        <section id="accreditation">
+          <h2>Accreditation</h2>
+          <p>The institution profile identifies the following agencies in connection with its approvals or program recognition:</p>
+          <ul>
+            <li><strong>DECS</strong> — Department of Education, Culture and Sports (historical agency name)</li>
+            <li><strong>CHED</strong> — Commission on Higher Education</li>
+            <li><strong>TESDA</strong> — Technical Education and Skills Development Authority</li>
+          </ul>
+          <p class="footnote">Specific recognition, registration, and accreditation status can differ by program, campus, and date. Confirm current standing directly with the relevant agency or school.</p>
+        </section>
+
+        <section id="references">
+          <h2>References</h2>
+          <ol class="reference-list">
+            <li>Historical dates, founder, campus address, and institutional milestones supplied in the page brief. <span class="footnote">Primary documentation not provided.</span></li>
+            <li>Academic programs and accreditation agencies listed in the page brief. <span class="footnote">Current program and recognition status requires confirmation.</span></li>
+            <li><a href="https://www.facebook.com/CollegeofStAdelineParanaque" target="_blank" rel="noopener noreferrer">Datamex College of Saint Adeline – Parañaque Campus on Facebook</a>. <span class="footnote">Social media page supplied by the user; availability and public visibility may depend on Facebook settings.</span></li>
+          </ol>
+          <p class="footnote">The Facebook page is provided as an official-channel link, not as independent verification of the historical or accreditation claims above. Add official institutional histories, government recognition records, or archived sources to substantiate those details.</p>
+        </section>
+        <footer>
+          <p>Text is provided for informational purposes. EduPedia is a demonstration encyclopedia-style page and is not an official Datamex College of Saint Adeline website.</p>
+        </footer>
+      </article>
+    </div>
+  </main>
+  <script>
+    const searchForm = document.querySelector("#search-form");
+    const searchInput = document.querySelector("#site-search");
+    const searchStatus = document.querySelector("#search-status");
+    const article = document.querySelector("#article");
+    const tocLinks = [...document.querySelectorAll(".toc a")];
+
+    function clearSearch() {
+      article.querySelectorAll("mark").forEach((mark) => mark.replaceWith(document.createTextNode(mark.textContent)));
+      article.querySelectorAll(".search-match").forEach((element) => element.classList.remove("search-match"));
+      searchStatus.textContent = "";
+    }
+
+    function runSearch(scrollToMatch) {
+      clearSearch();
+      const query = searchInput.value.trim();
+      if (!query) {
+        return;
+      }
+
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const matcher = new RegExp(escaped, "gi");
+      const walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          return node.parentElement.closest("script, style, mark, footer") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+      let count = 0;
+      let firstMatch = null;
+
+      for (const node of textNodes) {
+        const text = node.textContent;
+        if (!matcher.test(text)) {
+          matcher.lastIndex = 0;
+          continue;
+        }
+        matcher.lastIndex = 0;
+        const fragment = document.createDocumentFragment();
+        let cursor = 0;
+        for (const match of text.matchAll(matcher)) {
+          fragment.append(document.createTextNode(text.slice(cursor, match.index)));
+          const mark = document.createElement("mark");
+          mark.textContent = match[0];
+          fragment.append(mark);
+          firstMatch ||= mark;
+          count += 1;
+          cursor = match.index + match[0].length;
+        }
+        fragment.append(document.createTextNode(text.slice(cursor)));
+        node.replaceWith(fragment);
+      }
+
+      if (firstMatch) {
+        firstMatch.closest("section, p, .timeline-item")?.classList.add("search-match");
+        if (scrollToMatch) firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
+        searchStatus.textContent = `${count} match${count === 1 ? "" : "es"} found.`;
+      } else {
+        searchStatus.textContent = `No matches found for “${query}”.`;
+      }
+    }
+
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!searchInput.value.trim()) {
+        clearSearch();
+        searchStatus.textContent = "Enter a term to search this article.";
+        searchInput.focus();
+        return;
+      }
+      runSearch(true);
+    });
+
+    searchInput.addEventListener("input", () => {
+      if (searchInput.value.trim()) runSearch(false);
+      else clearSearch();
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (!visible) return;
+      tocLinks.forEach((link) => {
+        if (link.hash === `#${visible.target.id}`) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }, { rootMargin: "-15% 0px -72% 0px" });
+    article.querySelectorAll("section, #overview").forEach((section) => sectionObserver.observe(section));
+  </script>
+</body>
+</html>
